@@ -1,0 +1,29 @@
+version: '2.23.3'
+
+services:
+
+#Backend API
+  smart-brain-api:
+    container_name: backend
+    build: ./
+    command: npm start
+    working_dir: /home/serhii/Desktop/Programming/Course/Projects/facerecognitionapp/face_recognition_app/Server
+    environment:
+      POSTGRES_URI: postgres://serhii:password@postgres:5432/smart-brain-docker
+    links:
+      - postgres
+    ports:
+      - "3000:3000"
+    volumes: 
+      - ./:/home/serhii/Desktop/Programming/Course/Projects/facerecognitionapp/face_recognition_app/Server
+
+  #Postgress
+  postgres:
+    environment:
+      POSTGRES_USER: serhii
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: smart-brain-docker
+      POSTGRES_HOST: postgres
+    build: ./postgres
+    ports:
+      - "5433:5432"

@@ -7,22 +7,21 @@ const register = require('./controllers/register');
 const signin = require('./controllers/signin');
 const profile = require('./controllers/profile');
 const image = require('./controllers/image');
+const morgan = require('morgan');
 
 const db = knex({
     client: 'pg',
-    connection: {
-        host: '127.0.0.1',
-        port: 5432,
-        user: 'test_user',
-        password: '11111111',
-        database: 'smart_brain_db'
-    }
+    connection: process.env.POSTGRES_URI
 });
+
+console.log(process.env.POSTGRES_URI)
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(cors());
+app.use(morgan('combined'));
+
 
 app.post('/signin', signin.handleSignin(db, bcrypt));
 app.post('/register', register.handleRegister(db, bcrypt));
