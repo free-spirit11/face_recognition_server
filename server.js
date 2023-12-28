@@ -8,6 +8,8 @@ const signin = require('./controllers/signin');
 const profile = require('./controllers/profile');
 const image = require('./controllers/image');
 const morgan = require('morgan');
+const auth = require('./controllers/authorization');
+
 
 const db = knex({
     client: 'pg',
@@ -18,15 +20,15 @@ console.log(process.env.POSTGRES_URI)
 
 const app = express();
 
-app.use(bodyParser.json());
 app.use(cors());
+app.use(bodyParser.json());
 app.use(morgan('combined'));
 
-
-app.post('/signin', signin.handleSignin(db, bcrypt));
+app.post('/signin', signin.signinAuthentication(db, bcrypt));
 app.post('/register', register.handleRegister(db, bcrypt));
-app.get('/profile/:id', profile.handleProfile(db));
-app.put('/image', image.handleImage(db));
+app.get('/profile/:id', auth.requireAuth, profile.handleProfileGet(db));
+app.post('/profile/:id', auth.requireAuth, profile.handleProfileUpdate(db));
+app.put('/image', auth.requireAuth, image.handleImage(db));
 
 // const PORT = process.env.PORT;
 // app.listen(PORT, () => {
