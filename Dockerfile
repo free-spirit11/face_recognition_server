@@ -4,4 +4,5 @@ WORKDIR /home/serhii/Desktop/Programming/Course/Projects/facerecognitionapp/face
 
 COPY ./ ./
 RUN npm install
-CMD ["/bin/bash"]
+# CMD ["/bin/bash"]
+CMD ["npm", "run", "start:dev"]

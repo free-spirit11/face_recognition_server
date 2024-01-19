@@ -25,7 +25,7 @@ console.log("check", name)
             } else {
                 console.log("response from db in else: ", resp)
 
-                res.status(400).json('Unable to updateeeeeeeeeeeeeeeeeeeeee')
+                res.status(400).json('Unable to update')
             }
         })
         .catch(err => res.status(400).json('error updating user'))

@@ -6,7 +6,7 @@ services:
   smart-brain-api:
     container_name: backend
     build: ./
-    command: npm start
+    command: npm run start:dev
     working_dir: /home/serhii/Desktop/Programming/Course/Projects/facerecognitionapp/face_recognition_app/Server
     environment:
       POSTGRES_URI: postgres://serhii:password@postgres:5432/smart-brain-docker
